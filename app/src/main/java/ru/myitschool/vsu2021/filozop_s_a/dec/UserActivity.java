@@ -15,7 +15,7 @@ public class UserActivity extends AppCompatActivity {
 
     EditText nameBox;
     EditText authorBox;
-    Button delButton;
+    Button readButton;
     Button saveButton;
 
     DatabaseHelper sqlHelper;
@@ -29,8 +29,8 @@ public class UserActivity extends AppCompatActivity {
 
         nameBox = findViewById(R.id.name);
         authorBox = findViewById(R.id.author);
-        delButton = findViewById(R.id.deleteButton);
         saveButton = findViewById(R.id.saveButton);
+        readButton = findViewById(R.id.readButton);
 
         sqlHelper = new DatabaseHelper(this);
         db = sqlHelper.getWritableDatabase();
@@ -50,7 +50,7 @@ public class UserActivity extends AppCompatActivity {
             userCursor.close();
         } else {
             // скрываем кнопку удаления
-            delButton.setVisibility(View.GONE);
+            readButton.setVisibility(View.GONE);
         }
     }
 
@@ -80,17 +80,4 @@ public class UserActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void read(View view) {
-        ContentValues cv = new ContentValues();
-        cv.put(DatabaseHelper.COLUMN_READ, "1");
-        db.update(DatabaseHelper.TABLE, cv, DatabaseHelper.COLUMN_ID + "=" + userId, null);
-        goHome();
-    }
-
-    public void reading(View view) {
-        ContentValues cv = new ContentValues();
-        cv.put(DatabaseHelper.COLUMN_READ, "2");
-        db.update(DatabaseHelper.TABLE, cv, DatabaseHelper.COLUMN_ID + "=" + userId, null);
-        goHome();
-    }
 }

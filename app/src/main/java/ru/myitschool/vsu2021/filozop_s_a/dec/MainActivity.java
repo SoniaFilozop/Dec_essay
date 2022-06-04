@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void Click(View view) {
         Intent intent=new Intent(MainActivity.this,SecondActivity.class);
         switch (view.getId()) {
