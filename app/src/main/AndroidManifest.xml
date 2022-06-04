@@ -24,6 +24,10 @@
         <activity
             android:name=".UserActivity">
         </activity>
+        <receiver
+            android:name=".CallDataSend"
+            android:enabled="true">
+        </receiver>
     </application>
 
 </manifest>
