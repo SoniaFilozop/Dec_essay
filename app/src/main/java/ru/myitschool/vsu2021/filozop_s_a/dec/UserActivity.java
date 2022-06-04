@@ -43,13 +43,13 @@ public class UserActivity extends AppCompatActivity {
         if (userId > 0) {
             // получаем элемент по id из бд
             userCursor = db.rawQuery("select * from " + DatabaseHelper.TABLE + " where " +
-                    DatabaseHelper.COLUMN_ID + "=?", new String[]{String.valueOf(userId)});
+                    DatabaseHelper.COLUMN_ID + " = ? ", new String[]{String.valueOf(userId)});
             userCursor.moveToFirst();
             nameBox.setText(userCursor.getString(3));
             authorBox.setText(userCursor.getString(2));
             userCursor.close();
         } else {
-            // скрываем кнопку удаления
+            // скрываем кнопку прочитано
             readButton.setVisibility(View.GONE);
         }
     }
@@ -58,6 +58,9 @@ public class UserActivity extends AppCompatActivity {
         ContentValues cv = new ContentValues();
         cv.put(DatabaseHelper.COLUMN_NAME, nameBox.getText().toString());
         cv.put(DatabaseHelper.COLUMN_AUTHOR, authorBox.getText().toString());
+        Bundle arguments = getIntent().getExtras();
+        Integer id_th = arguments.getInt("id_theme");
+        cv.put(DatabaseHelper.COLUMN_THEMEID, id_th);
 
         if (userId > 0) {
             db.update(DatabaseHelper.TABLE, cv, DatabaseHelper.COLUMN_ID + "=" + userId, null);
@@ -75,7 +78,7 @@ public class UserActivity extends AppCompatActivity {
         // закрываем подключение
         db.close();
         // переход к главной activity
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SecondActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }

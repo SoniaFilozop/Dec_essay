@@ -16,6 +16,7 @@ public class SecondActivity extends Activity {
     SQLiteDatabase db;
     Cursor userCursor;
     SimpleCursorAdapter userAdapter;
+    Integer id_t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class SecondActivity extends Activity {
         // открываем подключение
         Bundle arguments = getIntent().getExtras();
         Integer id_th = arguments.getInt("id_theme");
+        id_t = id_th;
         db = databaseHelper.getReadableDatabase();
 
         //получаем данные из бд в виде курсора
@@ -57,6 +59,7 @@ public class SecondActivity extends Activity {
     // по нажатию на кнопку запускаем UserActivity для добавления данных
     public void add(View view) {
         Intent intent = new Intent(this, UserActivity.class);
+        intent.putExtra("id_theme", id_t);
         startActivity(intent);
     }
 
